@@ -1,0 +1,542 @@
+/**
+ * Tic Tac Toe - Responsive Styles
+ * Mobile-first design with accessibility focus
+ */
+
+/* ========================================
+   CSS Custom Properties (Variables)
+   ======================================== */
+:root {
+    /* Color Palette */
+    --color-primary: #3498db;
+    --color-primary-dark: #2980b9;
+    --color-secondary: #2ecc71;
+    --color-danger: #e74c3c;
+    --color-warning: #f39c12;
+
+    /* Player Colors */
+    --color-player-x: #e74c3c;
+    --color-player-o: #3498db;
+
+    /* Neutral Colors */
+    --color-bg: #ecf0f1;
+    --color-surface: #ffffff;
+    --color-text: #2c3e50;
+    --color-text-light: #7f8c8d;
+    --color-border: #bdc3c7;
+    --color-border-light: #e0e4e6;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+
+    /* Typography */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.5rem;
+    --font-size-xxl: 2rem;
+    --font-size-xxxl: 3rem;
+
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-base: 250ms ease-in-out;
+    --transition-slow: 350ms ease-in-out;
+
+    /* Board Sizes */
+    --board-size-mobile: min(85vw, 320px);
+    --board-size-tablet: min(70vw, 400px);
+    --board-size-desktop: 450px;
+    --cell-size: calc(var(--board-size) / 3);
+    --board-size: var(--board-size-mobile);
+
+    /* Interactive Elements */
+    --min-touch-target: 44px;
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+}
+
+/* Dark Theme Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg: #1a1a2e;
+        --color-surface: #16213e;
+        --color-text: #eaeaea;
+        --color-text-light: #a0a0a0;
+        --color-border: #0f3460;
+        --color-border-light: #1e3a5f;
+    }
+}
+
+/* ========================================
+   Base Styles
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+}
+
+/* ========================================
+   Container & Layout
+   ======================================== */
+.game-container {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-lg);
+}
+
+/* ========================================
+   Header
+   ======================================== */
+.game-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.game-title {
+    font-size: var(--font-size-xxl);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+}
+
+/* ========================================
+   Game Controls
+   ======================================== */
+.game-controls {
+    margin-bottom: var(--spacing-xl);
+}
+
+.control-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.control-label {
+    display: block;
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text);
+}
+
+.button-group {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+/* ========================================
+   Buttons
+   ======================================== */
+.btn {
+    min-height: var(--min-touch-target);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    border: 2px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    flex: 1;
+    min-width: 100px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:focus {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.btn.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+}
+
+.btn-new-game {
+    width: 100%;
+    font-size: var(--font-size-lg);
+    min-height: 48px;
+}
+
+/* ========================================
+   Game Status
+   ======================================== */
+.game-status {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.status-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.status-text {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+}
+
+.move-count {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+}
+
+.player-symbol {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+}
+
+.player-symbol.player-x {
+    color: var(--color-player-x);
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.player-symbol.player-o {
+    color: var(--color-player-o);
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.game-message {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    animation: fadeIn var(--transition-base);
+}
+
+.message-winner {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: var(--color-secondary);
+}
+
+.message-draw {
+    background-color: rgba(243, 156, 18, 0.1);
+    color: var(--color-warning);
+}
+
+.message-turn {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--color-primary);
+}
+
+/* ========================================
+   Game Board
+   ======================================== */
+.game-board-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+    width: var(--board-size);
+    height: var(--board-size);
+    padding: var(--spacing-sm);
+    background-color: var(--color-border-light);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.game-board.board-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* ========================================
+   Game Cells
+   ======================================== */
+.cell {
+    aspect-ratio: 1;
+    background-color: var(--color-surface);
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-xxxl);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.cell:hover:not(.cell-x):not(.cell-o) {
+    background-color: var(--color-border-light);
+    transform: scale(1.05);
+}
+
+.cell:focus {
+    outline: 3px solid var(--color-primary);
+    outline-offset: -3px;
+}
+
+.cell-x {
+    color: var(--color-player-x);
+    animation: popIn var(--transition-base);
+}
+
+.cell-o {
+    color: var(--color-player-o);
+    animation: popIn var(--transition-base);
+}
+
+.winning-cell {
+    animation: winningPulse 0.5s ease-in-out infinite alternate;
+    background-color: rgba(46, 204, 113, 0.2);
+}
+
+/* ========================================
+   Game Actions
+   ======================================== */
+.game-actions {
+    margin-bottom: var(--spacing-xl);
+}
+
+/* ========================================
+   Statistics
+   ======================================== */
+.game-stats {
+    background-color: var(--color-bg);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.stats-title {
+    font-size: var(--font-size-xl);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+}
+
+.stat-item {
+    text-align: center;
+    padding: var(--spacing-md);
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-value {
+    display: block;
+    font-size: var(--font-size-xxl);
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.player-x-score {
+    color: var(--color-player-x);
+}
+
+.player-o-score {
+    color: var(--color-player-o);
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+.game-footer {
+    text-align: center;
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border-light);
+}
+
+.footer-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes winningPulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
+/* ========================================
+   Media Queries - Tablet
+   ======================================== */
+@media (min-width: 600px) {
+    :root {
+        --board-size: var(--board-size-tablet);
+    }
+
+    .game-container {
+        padding: var(--spacing-xl);
+    }
+
+    .game-title {
+        font-size: var(--font-size-xxxl);
+    }
+
+    .button-group {
+        flex-wrap: nowrap;
+    }
+
+    .stats-container {
+        gap: var(--spacing-lg);
+    }
+}
+
+/* ========================================
+   Media Queries - Desktop
+   ======================================== */
+@media (min-width: 1024px) {
+    :root {
+        --board-size: var(--board-size-desktop);
+    }
+
+    .game-container {
+        max-width: 700px;
+        padding: var(--spacing-xxl);
+    }
+
+    .cell {
+        font-size: 4rem;
+    }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+@media print {
+    body {
+        background-color: white;
+    }
+
+    .game-controls,
+    .game-actions {
+        display: none;
+    }
+}
+
+/* ========================================
+   Reduced Motion Support
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

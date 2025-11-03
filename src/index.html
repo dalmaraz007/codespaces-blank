@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A responsive Tic Tac Toe game with Player vs Player and Player vs AI modes">
+    <meta name="theme-color" content="#2c3e50">
+    <title>Tic Tac Toe - Play Against Friends or AI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header Section -->
+        <header class="game-header">
+            <h1 class="game-title">Tic Tac Toe</h1>
+        </header>
+
+        <!-- Game Controls Section -->
+        <section class="game-controls" aria-label="Game Settings">
+            <!-- Mode Selector -->
+            <div class="control-group">
+                <label for="game-mode" class="control-label">Game Mode:</label>
+                <div class="button-group" role="radiogroup" aria-labelledby="game-mode-label">
+                    <span id="game-mode-label" class="sr-only">Select game mode</span>
+                    <button
+                        id="mode-pvp"
+                        class="btn btn-mode active"
+                        data-mode="pvp"
+                        role="radio"
+                        aria-checked="true"
+                        aria-label="Player versus Player mode">
+                        Player vs Player
+                    </button>
+                    <button
+                        id="mode-pvai"
+                        class="btn btn-mode"
+                        data-mode="pvai"
+                        role="radio"
+                        aria-checked="false"
+                        aria-label="Player versus AI mode">
+                        Player vs AI
+                    </button>
+                </div>
+            </div>
+
+            <!-- Difficulty Selector (hidden by default) -->
+            <div class="control-group difficulty-group" id="difficulty-container" style="display: none;">
+                <label for="ai-difficulty" class="control-label">AI Difficulty:</label>
+                <div class="button-group" role="radiogroup" aria-labelledby="difficulty-label">
+                    <span id="difficulty-label" class="sr-only">Select AI difficulty</span>
+                    <button
+                        id="difficulty-easy"
+                        class="btn btn-difficulty"
+                        data-difficulty="easy"
+                        role="radio"
+                        aria-checked="false"
+                        aria-label="Easy difficulty">
+                        Easy
+                    </button>
+                    <button
+                        id="difficulty-medium"
+                        class="btn btn-difficulty active"
+                        data-difficulty="medium"
+                        role="radio"
+                        aria-checked="true"
+                        aria-label="Medium difficulty">
+                        Medium
+                    </button>
+                    <button
+                        id="difficulty-hard"
+                        class="btn btn-difficulty"
+                        data-difficulty="hard"
+                        role="radio"
+                        aria-checked="false"
+                        aria-label="Hard difficulty">
+                        Hard
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Status Section -->
+        <section class="game-status" aria-live="polite" aria-atomic="true">
+            <div class="status-display">
+                <p id="current-player" class="status-text">
+                    Current Player: <span class="player-symbol player-x">X</span>
+                </p>
+                <p id="move-counter" class="move-count">
+                    Move: <span id="move-number">0</span>
+                </p>
+            </div>
+            <div id="game-message" class="game-message" role="status" aria-live="assertive"></div>
+        </section>
+
+        <!-- Game Board Section -->
+        <main class="game-board-container">
+            <div
+                id="game-board"
+                class="game-board"
+                role="grid"
+                aria-label="Tic Tac Toe game board">
+                <!-- Row 1 -->
+                <button
+                    class="cell"
+                    data-row="0"
+                    data-col="0"
+                    role="gridcell"
+                    aria-label="Cell 1, empty"
+                    tabindex="0"></button>
+                <button
+                    class="cell"
+                    data-row="0"
+                    data-col="1"
+                    role="gridcell"
+                    aria-label="Cell 2, empty"
+                    tabindex="-1"></button>
+                <button
+                    class="cell"
+                    data-row="0"
+                    data-col="2"
+                    role="gridcell"
+                    aria-label="Cell 3, empty"
+                    tabindex="-1"></button>
+
+                <!-- Row 2 -->
+                <button
+                    class="cell"
+                    data-row="1"
+                    data-col="0"
+                    role="gridcell"
+                    aria-label="Cell 4, empty"
+                    tabindex="-1"></button>
+                <button
+                    class="cell"
+                    data-row="1"
+                    data-col="1"
+                    role="gridcell"
+                    aria-label="Cell 5, empty"
+                    tabindex="-1"></button>
+                <button
+                    class="cell"
+                    data-row="1"
+                    data-col="2"
+                    role="gridcell"
+                    aria-label="Cell 6, empty"
+                    tabindex="-1"></button>
+
+                <!-- Row 3 -->
+                <button
+                    class="cell"
+                    data-row="2"
+                    data-col="0"
+                    role="gridcell"
+                    aria-label="Cell 7, empty"
+                    tabindex="-1"></button>
+                <button
+                    class="cell"
+                    data-row="2"
+                    data-col="1"
+                    role="gridcell"
+                    aria-label="Cell 8, empty"
+                    tabindex="-1"></button>
+                <button
+                    class="cell"
+                    data-row="2"
+                    data-col="2"
+                    role="gridcell"
+                    aria-label="Cell 9, empty"
+                    tabindex="-1"></button>
+            </div>
+        </main>
+
+        <!-- Action Buttons -->
+        <section class="game-actions">
+            <button id="new-game-btn" class="btn btn-primary btn-new-game" aria-label="Start a new game">
+                New Game
+            </button>
+        </section>
+
+        <!-- Score/Statistics Section -->
+        <section class="game-stats" aria-label="Game Statistics">
+            <h2 class="stats-title">Score</h2>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-label">Player X</span>
+                    <span id="score-x" class="stat-value player-x-score">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Draws</span>
+                    <span id="score-draws" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Player O</span>
+                    <span id="score-o" class="stat-value player-o-score">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="game-footer">
+            <p class="footer-text">Built with HTML, CSS, and JavaScript</p>
+        </footer>
+    </div>
+
+    <!-- Screen Reader Only Messages -->
+    <div class="sr-only" role="status" aria-live="polite" id="sr-announcements"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/ui.js"></script>
+</body>
+</html>
