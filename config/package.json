@@ -2,7 +2,6 @@
   "name": "tic-tac-toe-tests",
   "version": "1.0.0",
   "description": "Comprehensive test suite for Tic Tac Toe game",
-  "type": "module",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
